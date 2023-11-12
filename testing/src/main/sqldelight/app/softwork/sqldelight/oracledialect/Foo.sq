@@ -1,0 +1,13 @@
+CREATE TABLE foo(
+  id INT NOT NULL,
+  name VARCHAR(255) NOT NULL
+);
+
+getAll:
+SELECT * FROM foo;
+
+new:
+INSERT INTO foo VALUES ?;
+
+create:
+INSERT INTO foo (id, name) VALUES ?;

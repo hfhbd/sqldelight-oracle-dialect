@@ -1,0 +1,496 @@
+public final class app/softwork/sqldelight/oracledialect/OracleDialect : app/cash/sqldelight/dialect/api/SqlDelightDialect {
+	public fun <init> ()V
+	public fun getAllowsReferenceCycles ()Z
+	public fun getAsyncRuntimeTypes ()Lapp/cash/sqldelight/dialect/api/RuntimeTypes;
+	public fun getConnectionManager ()Lapp/cash/sqldelight/dialect/api/ConnectionManager;
+	public fun getIcon ()Ljavax/swing/Icon;
+	public fun getMigrationStrategy ()Lapp/cash/sqldelight/dialect/api/SqlGeneratorStrategy;
+	public fun getRuntimeTypes ()Lapp/cash/sqldelight/dialect/api/RuntimeTypes;
+	public fun isSqlite ()Z
+	public fun migrationSquasher (Lapp/cash/sqldelight/dialect/api/MigrationSquasher;)Lapp/cash/sqldelight/dialect/api/MigrationSquasher;
+	public fun setup ()V
+	public fun typeResolver (Lapp/cash/sqldelight/dialect/api/TypeResolver;)Lapp/cash/sqldelight/dialect/api/TypeResolver;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/OracleParser : com/intellij/lang/LightPsiParser, com/intellij/lang/PsiParser {
+	public fun <init> ()V
+	public static fun approximate_numeric_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun big_int_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun binary_large_object_string_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun binary_string_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun bit_string_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun boolean_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun char_length_units_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun character_large_object_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun character_large_object_length_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun character_string_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun date_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun end_field_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun fixed_point_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun int_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun interval_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun interval_qualifier_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun multiplier_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun non_second_primary_datetime_field_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun overrides_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public fun parse (Lcom/intellij/psi/tree/IElementType;Lcom/intellij/lang/PsiBuilder;)Lcom/intellij/lang/ASTNode;
+	public fun parseLight (Lcom/intellij/psi/tree/IElementType;Lcom/intellij/lang/PsiBuilder;)V
+	protected fun parse_root_ (Lcom/intellij/psi/tree/IElementType;Lcom/intellij/lang/PsiBuilder;)Z
+	public static fun precision_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun scale_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun single_datetime_field_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun small_int_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun start_field_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun tiny_int_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
+	public static fun type_name_real (Lcom/intellij/lang/PsiBuilder;I)Z
+}
+
+public final class app/softwork/sqldelight/oracledialect/grammar/OracleParserUtil : com/intellij/lang/parser/GeneratedParserUtilBase {
+	public static final field INSTANCE Lapp/softwork/sqldelight/oracledialect/grammar/OracleParserUtil;
+	public static final fun approximateNumericDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun bigIntDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun binaryLargeObjectStringDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun binaryStringDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun bitStringDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun booleanDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun charLengthUnitsExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun characterLargeObjectDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun characterLargeObjectLengthExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun characterStringDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun dateDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun endFieldExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun fixedPointDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public final fun getApproximate_numeric_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getBig_int_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getBinary_large_object_string_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getBinary_string_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getBit_string_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getBoolean_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getChar_length_units ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getCharacter_large_object_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getCharacter_large_object_length ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getCharacter_string_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getCreateElement ()Lkotlin/jvm/functions/Function1;
+	public final fun getDate_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getEnd_field ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getFixed_point_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getInt_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getInterval_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getInterval_qualifier ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getMultiplier ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getNon_second_primary_datetime_field ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getOverrides ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getPrecision ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getScale ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getSingle_datetime_field ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getSmall_int_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getStart_field ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getTiny_int_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public final fun getType_name ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
+	public static final fun intDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun intervalDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun intervalQualifierExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun multiplierExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun nonSecondPrimaryDatetimeFieldExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public final fun overrideSqlParser ()V
+	public static final fun overridesExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun precisionExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public final fun reset ()V
+	public static final fun scaleExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public final fun setApproximate_numeric_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setBig_int_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setBinary_large_object_string_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setBinary_string_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setBit_string_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setBoolean_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setChar_length_units (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setCharacter_large_object_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setCharacter_large_object_length (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setCharacter_string_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setCreateElement (Lkotlin/jvm/functions/Function1;)V
+	public final fun setDate_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setEnd_field (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setFixed_point_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setInt_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setInterval_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setInterval_qualifier (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setMultiplier (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setNon_second_primary_datetime_field (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setOverrides (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setPrecision (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setScale (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setSingle_datetime_field (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setSmall_int_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setStart_field (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setTiny_int_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public final fun setType_name (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
+	public static final fun singleDatetimeFieldExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun smallIntDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun startFieldExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun tinyIntDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+	public static final fun typeNameExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleApproximateNumericDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getPrecision ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleBigIntDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryLargeObjectStringDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryStringDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getBinaryLargeObjectStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryLargeObjectStringDataType;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleBitStringDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleBooleanDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharLengthUnits : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getCharacterLargeObjectLength ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectLength;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectLength : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getCharLengthUnits ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharLengthUnits;
+	public abstract fun getMultiplier ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleMultiplier;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterStringDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getCharacterLargeObjectDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectDataType;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleDateDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleEndField : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleFixedPointDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getPrecision ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision;
+	public abstract fun getScale ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleScale;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getIntervalQualifier ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalQualifier;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalQualifier : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getEndField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleEndField;
+	public abstract fun getSingleDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSingleDatetimeField;
+	public abstract fun getStartField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleStartField;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleMultiplier : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleOverrides : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getTypeName ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleScale : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleSingleDatetimeField : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleStartField : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+	public abstract fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName : com/alecstrong/sql/psi/core/psi/SqlTypeName {
+	public abstract fun getApproximateNumericDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleApproximateNumericDataType;
+	public abstract fun getBigIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBigIntDataType;
+	public abstract fun getBinaryStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryStringDataType;
+	public abstract fun getBitStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBitStringDataType;
+	public abstract fun getBooleanDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBooleanDataType;
+	public abstract fun getCharacterStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterStringDataType;
+	public abstract fun getDateDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleDateDataType;
+	public abstract fun getFixedPointDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleFixedPointDataType;
+	public abstract fun getIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType;
+	public abstract fun getIntervalDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType;
+	public abstract fun getSmallIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType;
+	public abstract fun getTinyIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType;
+}
+
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypes {
+	public static final field APPROXIMATE_NUMERIC_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field BIG_INT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field BINARY_LARGE_OBJECT_STRING_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field BINARY_STRING_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field BIT_STRING_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field BOOLEAN_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field CHARACTER_LARGE_OBJECT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field CHARACTER_LARGE_OBJECT_LENGTH Lcom/intellij/psi/tree/IElementType;
+	public static final field CHARACTER_STRING_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field CHAR_LENGTH_UNITS Lcom/intellij/psi/tree/IElementType;
+	public static final field COMMA Lcom/intellij/psi/tree/IElementType;
+	public static final field DATE_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field DIGIT Lcom/intellij/psi/tree/IElementType;
+	public static final field END_FIELD Lcom/intellij/psi/tree/IElementType;
+	public static final field FIXED_POINT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field INTERVAL_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field INTERVAL_QUALIFIER Lcom/intellij/psi/tree/IElementType;
+	public static final field INT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field LP Lcom/intellij/psi/tree/IElementType;
+	public static final field MULTIPLIER Lcom/intellij/psi/tree/IElementType;
+	public static final field NON_SECOND_PRIMARY_DATETIME_FIELD Lcom/intellij/psi/tree/IElementType;
+	public static final field OVERRIDES Lcom/intellij/psi/tree/IElementType;
+	public static final field PRECISION Lcom/intellij/psi/tree/IElementType;
+	public static final field RP Lcom/intellij/psi/tree/IElementType;
+	public static final field SCALE Lcom/intellij/psi/tree/IElementType;
+	public static final field SINGLE_DATETIME_FIELD Lcom/intellij/psi/tree/IElementType;
+	public static final field SMALL_INT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field START_FIELD Lcom/intellij/psi/tree/IElementType;
+	public static final field TINY_INT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
+	public static final field TO Lcom/intellij/psi/tree/IElementType;
+	public static final field TYPE_NAME Lcom/intellij/psi/tree/IElementType;
+	public static final field WITH Lcom/intellij/psi/tree/IElementType;
+	public static final field WITHOUT Lcom/intellij/psi/tree/IElementType;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypes$Factory {
+	public fun <init> ()V
+	public static fun createElement (Lcom/intellij/lang/ASTNode;)Lcom/intellij/psi/PsiElement;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor : com/intellij/psi/PsiElementVisitor {
+	public fun <init> ()V
+	public fun visitApproximateNumericDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleApproximateNumericDataType;)V
+	public fun visitBigIntDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBigIntDataType;)V
+	public fun visitBinaryLargeObjectStringDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryLargeObjectStringDataType;)V
+	public fun visitBinaryStringDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryStringDataType;)V
+	public fun visitBitStringDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBitStringDataType;)V
+	public fun visitBooleanDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBooleanDataType;)V
+	public fun visitCharLengthUnits (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharLengthUnits;)V
+	public fun visitCharacterLargeObjectDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectDataType;)V
+	public fun visitCharacterLargeObjectLength (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectLength;)V
+	public fun visitCharacterStringDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterStringDataType;)V
+	public fun visitDateDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleDateDataType;)V
+	public fun visitEndField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleEndField;)V
+	public fun visitFixedPointDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleFixedPointDataType;)V
+	public fun visitIntDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType;)V
+	public fun visitIntervalDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType;)V
+	public fun visitIntervalQualifier (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalQualifier;)V
+	public fun visitMultiplier (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleMultiplier;)V
+	public fun visitNonSecondPrimaryDatetimeField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;)V
+	public fun visitOverrides (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleOverrides;)V
+	public fun visitPrecision (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision;)V
+	public fun visitScale (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleScale;)V
+	public fun visitSingleDatetimeField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSingleDatetimeField;)V
+	public fun visitSmallIntDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType;)V
+	public fun visitSqlCompositeElement (Lcom/alecstrong/sql/psi/core/psi/SqlCompositeElement;)V
+	public fun visitSqlTypeName (Lcom/alecstrong/sql/psi/core/psi/SqlTypeName;)V
+	public fun visitStartField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleStartField;)V
+	public fun visitTinyIntDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType;)V
+	public fun visitTypeName (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleApproximateNumericDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleApproximateNumericDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getPrecision ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleBigIntDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleBigIntDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleBinaryLargeObjectStringDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryLargeObjectStringDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleBinaryStringDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryStringDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getBinaryLargeObjectStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryLargeObjectStringDataType;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleBitStringDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleBitStringDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleBooleanDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleBooleanDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleCharLengthUnitsImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharLengthUnits {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleCharacterLargeObjectDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getCharacterLargeObjectLength ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectLength;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleCharacterLargeObjectLengthImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectLength {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getCharLengthUnits ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharLengthUnits;
+	public fun getMultiplier ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleMultiplier;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleCharacterStringDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterStringDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getCharacterLargeObjectDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterLargeObjectDataType;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleDateDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleDateDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleEndFieldImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleEndField {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleFixedPointDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleFixedPointDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getPrecision ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision;
+	public fun getScale ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleScale;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleIntDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleIntervalDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getIntervalQualifier ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalQualifier;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleIntervalQualifierImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalQualifier {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getEndField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleEndField;
+	public fun getSingleDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSingleDatetimeField;
+	public fun getStartField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleStartField;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleMultiplierImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleMultiplier {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleNonSecondPrimaryDatetimeFieldImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleOverridesImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleOverrides {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getTypeName ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OraclePrecisionImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleScaleImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleScale {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleSingleDatetimeFieldImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleSingleDatetimeField {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleSmallIntDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleStartFieldImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleStartField {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleTinyIntDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleTypeNameImpl : com/alecstrong/sql/psi/core/psi/impl/SqlTypeNameImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+	public fun getApproximateNumericDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleApproximateNumericDataType;
+	public fun getBigIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBigIntDataType;
+	public fun getBinaryStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBinaryStringDataType;
+	public fun getBitStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBitStringDataType;
+	public fun getBooleanDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBooleanDataType;
+	public fun getCharacterStringDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleCharacterStringDataType;
+	public fun getDateDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleDateDataType;
+	public fun getFixedPointDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleFixedPointDataType;
+	public fun getIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType;
+	public fun getIntervalDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType;
+	public fun getSmallIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType;
+	public fun getTinyIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType;
+}
+

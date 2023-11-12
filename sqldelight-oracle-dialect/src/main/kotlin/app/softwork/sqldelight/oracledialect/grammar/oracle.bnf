@@ -1,0 +1,94 @@
+{
+  // Specify the parent parser.
+  overrides="com.alecstrong.sql.psi.core.SqlParser"
+  elementTypeClass = "com.alecstrong.sql.psi.core.SqlElementType"
+
+  implements="com.alecstrong.sql.psi.core.psi.SqlCompositeElement"
+  extends="com.alecstrong.sql.psi.core.psi.SqlCompositeElementImpl"
+  psiClassPrefix = "Oracle"
+
+  parserImports=[
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ALL"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ALWAYS"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.AS"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.BY"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.COMMA"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.DEFAULT"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.DIGIT"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.DISTINCT"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.EACH"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.EQ"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.FOR"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.FROM"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.GENERATED"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ID"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.INTO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.GROUP"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.HAVING"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.LP"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.NO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ON"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ORDER"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ROW"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.RP"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.SELECT"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.SET"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.TO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.UPDATE"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.VALUES"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.WHERE"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITH"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITHOUT"
+  ]
+}
+overrides ::= type_name
+
+type_name ::= (
+  tiny_int_data_type |
+  small_int_data_type |
+  int_data_type |
+  big_int_data_type |
+  fixed_point_data_type |
+  approximate_numeric_data_type |
+  boolean_data_type |
+  date_data_type |
+  character_string_data_type |
+  binary_string_data_type |
+  bit_string_data_type |
+  interval_data_type
+) {
+  extends = "com.alecstrong.sql.psi.core.psi.impl.SqlTypeNameImpl"
+  implements = "com.alecstrong.sql.psi.core.psi.SqlTypeName"
+  override = true
+}
+
+tiny_int_data_type ::= 'TINYINT'
+small_int_data_type ::= 'SMALLINT'
+int_data_type ::= 'INTEGER' | 'INT'
+big_int_data_type ::= 'BIGINT'
+fixed_point_data_type ::= { 'NUMERIC' | 'DECIMAL' | 'DEC' } [ LP precision [ COMMA scale ] RP ]
+approximate_numeric_data_type ::= 'FLOAT' [ LP precision RP ] | 'REAL' | ( 'DOUBLE' 'PRECISION' ) | 'DOUBLE'
+precision ::= digit
+scale ::= digit
+
+boolean_data_type ::= 'BOOLEAN'
+
+character_string_data_type ::= { ('CHARACTER' 'VARYING') | ('CHAR' 'VARYING') | 'VARCHAR' } LP digit RP | character_large_object_data_type | { 'CHARACTER' | 'CHAR' | 'LONGVARCHAR' } [ LP digit RP ]
+character_large_object_data_type ::= { ('CHARACTER' 'LARGE' 'OBJECT') | ('CHAR' 'LARGE' 'OBJECT') | 'CLOB' } [ LP character_large_object_length RP ]
+character_large_object_length ::= digit [ multiplier ] [ char_length_units ]
+multiplier ::= 'K' | 'M' | 'G'
+char_length_units ::= 'CHARACTERS' | 'OCTETS'
+
+binary_string_data_type ::= { ('BINARY' 'VARYING') | 'VARBINARY' } LP digit RP | binary_large_object_string_data_type | { 'BINARY' | 'LONGVARBINARY' } [ LP digit RP ] | 'UUID'
+binary_large_object_string_data_type ::= { ('BINARY' 'LARGE' 'OBJECT') | 'BLOB' } [ LP digit RP ]
+
+bit_string_data_type ::= 'BIT' 'VARYING' LP digit RP | 'BIT' [ LP digit RP ]
+
+date_data_type ::= 'DATE' | ( 'TIME' | 'TIMESTAMP' ) [ LP digit RP ] [ ( WITH | WITHOUT ) 'TIME' 'ZONE' ]
+
+interval_data_type ::= 'INTERVAL' interval_qualifier
+interval_qualifier ::= start_field TO end_field | single_datetime_field
+start_field ::= non_second_primary_datetime_field [ LP digit RP ]
+end_field ::= non_second_primary_datetime_field | 'SECOND' [ LP digit RP ]
+single_datetime_field ::= non_second_primary_datetime_field [ LP digit RP ] | 'SECOND' [ LP digit [ COMMA digit ] RP ]
+non_second_primary_datetime_field ::= 'YEAR' | 'MONTH' | 'DAY' | 'HOUR' | 'MINUTE'
