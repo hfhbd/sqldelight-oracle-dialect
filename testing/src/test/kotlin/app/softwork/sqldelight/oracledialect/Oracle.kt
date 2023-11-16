@@ -13,6 +13,7 @@ object Oracle {
         OracleDataSource().apply {
             driverType = "thin"
             serverName = "localhost"
+            serviceName = "FREEPDB1"
             portNumber = container.firstMappedPort
             serviceName = "xepdb1"
             databaseName = "xepdb1"
