@@ -18,7 +18,7 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation(libs.sqldelight.compilerEnv)
-    testImplementation(testFixtures(libs.sql.psi))
+    testImplementation(libs.sql.psi.test.fixtures)
 }
 
 kotlin {
