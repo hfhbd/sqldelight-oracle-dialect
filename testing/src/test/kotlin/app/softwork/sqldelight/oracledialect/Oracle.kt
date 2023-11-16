@@ -11,7 +11,7 @@ object Oracle {
         val container = OracleContainer(myImage)
         container.start()
         OracleDataSource().apply {
-            databaseName = "xepdb1"
+            serviceName = "xepdb1"
             user = "test"
             portNumber = container.firstMappedPort
             setPassword("test")
