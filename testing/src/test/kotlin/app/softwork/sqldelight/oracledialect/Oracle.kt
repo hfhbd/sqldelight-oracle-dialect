@@ -11,9 +11,11 @@ object Oracle {
         val container = OracleContainer(myImage)
         container.start()
         OracleDataSource().apply {
+            driverType = "thin"
+            serverName = "localhost"
+            portNumber = container.firstMappedPort
             serviceName = "xepdb1"
             user = "test"
-            portNumber = container.firstMappedPort
             setPassword("test")
         }.asJdbcDriver()
     }
