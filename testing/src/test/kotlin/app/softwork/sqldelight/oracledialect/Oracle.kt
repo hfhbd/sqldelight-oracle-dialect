@@ -15,6 +15,7 @@ object Oracle {
             serverName = "localhost"
             portNumber = container.firstMappedPort
             serviceName = "xepdb1"
+            databaseName = "xepdb1"
             user = "test"
             setPassword("test")
         }.asJdbcDriver()
