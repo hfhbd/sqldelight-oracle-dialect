@@ -25,11 +25,10 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                     }
                 }
 
-                tinyIntDataType != null -> OracleType.TINY_INT
                 smallIntDataType != null -> OracleType.SMALL_INT
                 intDataType != null -> OracleType.INTEGER
                 bigIntDataType != null -> OracleType.BIG_INT
-                fixedPointDataType != null -> PrimitiveType.INTEGER
+                fixedPointDataType != null -> OracleType.NUMBER
                 characterStringDataType != null -> PrimitiveType.TEXT
                 booleanDataType != null -> OracleType.BOOL
                 bitStringDataType != null -> PrimitiveType.BLOB

@@ -4,11 +4,6 @@ import app.cash.sqldelight.dialect.api.*
 import com.squareup.kotlinpoet.*
 
 internal enum class OracleType(override val javaType: TypeName) : DialectType {
-    TINY_INT(BYTE) {
-        override fun decode(value: CodeBlock) = CodeBlock.of("%L.toByte()", value)
-
-        override fun encode(value: CodeBlock) = CodeBlock.of("%L.toLong()", value)
-    },
     SMALL_INT(SHORT) {
         override fun decode(value: CodeBlock) = CodeBlock.of("%L.toShort()", value)
 
@@ -20,43 +15,35 @@ internal enum class OracleType(override val javaType: TypeName) : DialectType {
         override fun encode(value: CodeBlock) = CodeBlock.of("%L.toLong()", value)
     },
     BIG_INT(LONG),
+    NUMBER(ClassName("java.math", "BigDecimal")),
     BOOL(BOOLEAN) {
         override fun decode(value: CodeBlock) = CodeBlock.of("%L == 1L", value)
 
         override fun encode(value: CodeBlock) = CodeBlock.of("if (%L) 1L else 0L", value)
     },
-    DATE(ClassName("kotlinx.datetime", "LocalDate")) {
-        override fun decode(value: CodeBlock) =
-            CodeBlock.of("%L.%M()", value, MemberName("kotlinx.datetime", "toJavaLocalDate", isExtension = true))
-
-        override fun encode(value: CodeBlock) = CodeBlock.of(
-            "(%L as java.time.LocalDate?)?.%M()", value,
-            MemberName("kotlinx.datetime", "toKotlinLocalDate", isExtension = true)
-        )
-    },
-    TIME(ClassName("kotlinx.datetime", "LocalTime")),
-    TIMESTAMP(ClassName("kotlinx.datetime", "LocalDateTime")),
-    TIMESTAMP_TIMEZONE(ClassName("kotlinx.datetime", "Instant")),
+    DATE(ClassName("java.time", "LocalDate")),
+    TIME(ClassName("java.time", "LocalTime")),
+    TIMESTAMP(ClassName("java.time", "LocalDateTime")),
+    TIMESTAMP_TIMEZONE(ClassName("java.time", "Instant")),
     ;
 
     override fun prepareStatementBinder(columnIndex: CodeBlock, value: CodeBlock): CodeBlock {
         return CodeBlock.builder()
             .add(
                 when (this) {
-                    TINY_INT, SMALL_INT, INTEGER, BIG_INT, BOOL -> "bindLong"
-                    DATE, TIME, TIMESTAMP, TIMESTAMP_TIMEZONE -> "bindObject"
+                    SMALL_INT, INTEGER, BIG_INT, BOOL -> "bindLong"
+                    NUMBER, DATE, TIME, TIMESTAMP, TIMESTAMP_TIMEZONE -> "bindObject"
                 }
             )
             .add("(%L, %L)\n", columnIndex, value)
             .build()
     }
 
-    override fun cursorGetter(columnIndex: Int, cursorName: String): CodeBlock {
-        return CodeBlock.of(
-            when (this) {
-                TINY_INT, SMALL_INT, INTEGER, BIG_INT, BOOL -> "$cursorName.getLong($columnIndex)"
-                DATE, TIME, TIMESTAMP, TIMESTAMP_TIMEZONE -> "$cursorName.getObject<%T>($columnIndex)"
-            }
+    override fun cursorGetter(columnIndex: Int, cursorName: String): CodeBlock = when (this) {
+        SMALL_INT, INTEGER, BIG_INT, BOOL -> CodeBlock.of("$cursorName.getLong($columnIndex)")
+        NUMBER, DATE, TIME, TIMESTAMP, TIMESTAMP_TIMEZONE -> CodeBlock.of(
+            "$cursorName.getObject<%T>($columnIndex)",
+            javaType
         )
     }
 }

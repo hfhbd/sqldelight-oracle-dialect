@@ -1,6 +1,7 @@
 package app.softwork.sqldelight.oracledialect
 
 import app.softwork.sqldelight.oracledialect.Oracle.driver
+import java.time.*
 import kotlin.test.*
 
 class Testing {
@@ -9,11 +10,13 @@ class Testing {
         TestingDB.Schema.create(driver)
         val db = TestingDB(driver)
 
-        assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
-        db.fooQueries.new(Foo(42, "Foo"))
-        assertEquals(listOf(Foo(42, "Foo")), db.fooQueries.getAll().executeAsList())
+        val epoch = LocalDate.ofEpochDay(0)
 
-        db.fooQueries.create(Foo(100, "Bar"))
-        assertEquals(listOf(Foo(42, "Foo"), Foo(100, "Bar")), db.fooQueries.getAll().executeAsList())
+        assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
+        db.fooQueries.new(Foo(42, "Foo", 1.toBigDecimal(), epoch))
+        assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch)), db.fooQueries.getAll().executeAsList())
+
+        db.fooQueries.create(Foo(100, "Bar", 1.toBigDecimal(), epoch))
+        assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch), Foo(100, "Bar", 1.toBigDecimal(), epoch)), db.fooQueries.getAll().executeAsList())
     }
 }
