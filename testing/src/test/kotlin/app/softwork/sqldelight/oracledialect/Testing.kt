@@ -17,6 +17,6 @@ class Testing {
         assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch)), db.fooQueries.getAll().executeAsList())
 
         db.fooQueries.create(Foo(100, "Bar", 1.toBigDecimal(), epoch))
-        assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch), Foo(100, "Bar", 1.toBigDecimal(), LocalDate.EPOCH)), db.fooQueries.getAll().executeAsList())
+        assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch), Foo(100, "Bar", 1.toBigDecimal(), epoch)), db.fooQueries.getAll().executeAsList())
     }
 }
