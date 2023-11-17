@@ -44,8 +44,8 @@
 }
 overrides ::= type_name | bind_parameter | generated_clause | default_constraint
 
+// https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/Data-Types.html#GUID-A3C0D836-BADB-44E5-A5D4-265BA5968483
 type_name ::= (
-  tiny_int_data_type |
   small_int_data_type |
   int_data_type |
   big_int_data_type |
@@ -63,11 +63,10 @@ type_name ::= (
   override = true
 }
 
-tiny_int_data_type ::= 'TINYINT'
 small_int_data_type ::= 'SMALLINT'
 int_data_type ::= 'INTEGER' | 'INT'
 big_int_data_type ::= 'BIGINT'
-fixed_point_data_type ::= { 'NUMERIC' | 'DECIMAL' | 'DEC' } [ LP precision [ COMMA scale ] RP ]
+fixed_point_data_type ::= { 'NUMERIC' | 'DECIMAL' | 'DEC' | 'NUMBER' } [ LP precision [ COMMA scale ] RP ]
 approximate_numeric_data_type ::= 'FLOAT' [ LP precision RP ] | 'REAL' | ( 'DOUBLE' 'PRECISION' ) | 'DOUBLE'
 precision ::= digit
 scale ::= digit

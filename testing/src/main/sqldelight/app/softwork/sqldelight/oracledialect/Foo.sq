@@ -1,6 +1,8 @@
 CREATE TABLE foo(
   id INT NOT NULL,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL,
+  nu NUMBER(255, 2) NOT NULL,
+  dd DATE NOT NULL
 );
 
 getAll:
@@ -10,4 +12,4 @@ new:
 INSERT INTO foo VALUES ?;
 
 create:
-INSERT INTO foo (id, name) VALUES ?;
+INSERT INTO foo (id, name, nu, dd) VALUES ?;

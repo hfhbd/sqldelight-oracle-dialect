@@ -44,7 +44,6 @@ public class app/softwork/sqldelight/oracledialect/grammar/OracleParser : com/in
 	public static fun single_datetime_field_real (Lcom/intellij/lang/PsiBuilder;I)Z
 	public static fun small_int_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
 	public static fun start_field_real (Lcom/intellij/lang/PsiBuilder;I)Z
-	public static fun tiny_int_data_type_real (Lcom/intellij/lang/PsiBuilder;I)Z
 	public static fun type_name_real (Lcom/intellij/lang/PsiBuilder;I)Z
 }
 
@@ -94,7 +93,6 @@ public final class app/softwork/sqldelight/oracledialect/grammar/OracleParserUti
 	public final fun getSingle_datetime_field ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
 	public final fun getSmall_int_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
 	public final fun getStart_field ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
-	public final fun getTiny_int_data_type ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
 	public final fun getType_name ()Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;
 	public static final fun intDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
 	public static final fun intervalDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
@@ -134,12 +132,10 @@ public final class app/softwork/sqldelight/oracledialect/grammar/OracleParserUti
 	public final fun setSingle_datetime_field (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
 	public final fun setSmall_int_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
 	public final fun setStart_field (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
-	public final fun setTiny_int_data_type (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
 	public final fun setType_name (Lcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)V
 	public static final fun singleDatetimeFieldExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
 	public static final fun smallIntDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
 	public static final fun startFieldExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
-	public static final fun tinyIntDataTypeExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
 	public static final fun typeNameExt (Lcom/intellij/lang/PsiBuilder;ILcom/intellij/lang/parser/GeneratedParserUtilBase$Parser;)Z
 }
 
@@ -226,6 +222,9 @@ public abstract interface class app/softwork/sqldelight/oracledialect/grammar/ps
 	public abstract fun getTypeName ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName;
 }
 
+public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleOverridesReal : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
+}
+
 public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
 }
 
@@ -243,9 +242,6 @@ public abstract interface class app/softwork/sqldelight/oracledialect/grammar/ps
 	public abstract fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
 }
 
-public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType : com/alecstrong/sql/psi/core/psi/SqlCompositeElement {
-}
-
 public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName : com/alecstrong/sql/psi/core/psi/SqlTypeName {
 	public abstract fun getApproximateNumericDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleApproximateNumericDataType;
 	public abstract fun getBigIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleBigIntDataType;
@@ -258,7 +254,6 @@ public abstract interface class app/softwork/sqldelight/oracledialect/grammar/ps
 	public abstract fun getIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType;
 	public abstract fun getIntervalDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType;
 	public abstract fun getSmallIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType;
-	public abstract fun getTinyIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType;
 }
 
 public abstract interface class app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypes {
@@ -281,6 +276,7 @@ public abstract interface class app/softwork/sqldelight/oracledialect/grammar/ps
 	public static final field DEFAULT Lcom/intellij/psi/tree/IElementType;
 	public static final field DEFAULT_CONSTRAINT Lcom/intellij/psi/tree/IElementType;
 	public static final field DIGIT Lcom/intellij/psi/tree/IElementType;
+	public static final field ELEMENTTYPE Lcom/intellij/psi/tree/IElementType;
 	public static final field END_FIELD Lcom/intellij/psi/tree/IElementType;
 	public static final field FIXED_POINT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
 	public static final field GENERATED Lcom/intellij/psi/tree/IElementType;
@@ -293,14 +289,13 @@ public abstract interface class app/softwork/sqldelight/oracledialect/grammar/ps
 	public static final field NON_SECOND_PRIMARY_DATETIME_FIELD Lcom/intellij/psi/tree/IElementType;
 	public static final field NULL Lcom/intellij/psi/tree/IElementType;
 	public static final field ON Lcom/intellij/psi/tree/IElementType;
-	public static final field OVERRIDES Lcom/intellij/psi/tree/IElementType;
+	public static final field OVERRIDES_REAL Lcom/intellij/psi/tree/IElementType;
 	public static final field PRECISION Lcom/intellij/psi/tree/IElementType;
 	public static final field RP Lcom/intellij/psi/tree/IElementType;
 	public static final field SCALE Lcom/intellij/psi/tree/IElementType;
 	public static final field SINGLE_DATETIME_FIELD Lcom/intellij/psi/tree/IElementType;
 	public static final field SMALL_INT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
 	public static final field START_FIELD Lcom/intellij/psi/tree/IElementType;
-	public static final field TINY_INT_DATA_TYPE Lcom/intellij/psi/tree/IElementType;
 	public static final field TO Lcom/intellij/psi/tree/IElementType;
 	public static final field TYPE_NAME Lcom/intellij/psi/tree/IElementType;
 	public static final field WITH Lcom/intellij/psi/tree/IElementType;
@@ -336,6 +331,7 @@ public class app/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor : c
 	public fun visitMultiplier (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleMultiplier;)V
 	public fun visitNonSecondPrimaryDatetimeField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;)V
 	public fun visitOverrides (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleOverrides;)V
+	public fun visitOverridesReal (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleOverridesReal;)V
 	public fun visitPrecision (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision;)V
 	public fun visitScale (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleScale;)V
 	public fun visitSingleDatetimeField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSingleDatetimeField;)V
@@ -346,7 +342,6 @@ public class app/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor : c
 	public fun visitSqlGeneratedClause (Lcom/alecstrong/sql/psi/core/psi/SqlGeneratedClause;)V
 	public fun visitSqlTypeName (Lcom/alecstrong/sql/psi/core/psi/SqlTypeName;)V
 	public fun visitStartField (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleStartField;)V
-	public fun visitTinyIntDataType (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType;)V
 	public fun visitTypeName (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName;)V
 }
 
@@ -499,6 +494,12 @@ public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleOverri
 	public fun getTypeName ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName;
 }
 
+public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleOverridesRealImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleOverridesReal {
+	public fun <init> (Lcom/intellij/lang/ASTNode;)V
+	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
+	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
+}
+
 public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OraclePrecisionImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OraclePrecision {
 	public fun <init> (Lcom/intellij/lang/ASTNode;)V
 	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
@@ -531,12 +532,6 @@ public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleStartF
 	public fun getNonSecondPrimaryDatetimeField ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleNonSecondPrimaryDatetimeField;
 }
 
-public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleTinyIntDataTypeImpl : com/alecstrong/sql/psi/core/psi/SqlCompositeElementImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType {
-	public fun <init> (Lcom/intellij/lang/ASTNode;)V
-	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
-	public fun accept (Lcom/intellij/psi/PsiElementVisitor;)V
-}
-
 public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleTypeNameImpl : com/alecstrong/sql/psi/core/psi/impl/SqlTypeNameImpl, app/softwork/sqldelight/oracledialect/grammar/psi/OracleTypeName {
 	public fun <init> (Lcom/intellij/lang/ASTNode;)V
 	public fun accept (Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleVisitor;)V
@@ -552,6 +547,5 @@ public class app/softwork/sqldelight/oracledialect/grammar/psi/impl/OracleTypeNa
 	public fun getIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntDataType;
 	public fun getIntervalDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleIntervalDataType;
 	public fun getSmallIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleSmallIntDataType;
-	public fun getTinyIntDataType ()Lapp/softwork/sqldelight/oracledialect/grammar/psi/OracleTinyIntDataType;
 }
 
