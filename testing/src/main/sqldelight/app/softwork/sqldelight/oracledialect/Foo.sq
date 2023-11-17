@@ -1,7 +1,7 @@
 CREATE TABLE foo(
   id INT NOT NULL,
   name VARCHAR(255) NOT NULL,
-  nu NUMBER(255, 2) NOT NULL,
+  nu NUMBER(10, 2) NOT NULL,
   dd DATE NOT NULL
 );
 
