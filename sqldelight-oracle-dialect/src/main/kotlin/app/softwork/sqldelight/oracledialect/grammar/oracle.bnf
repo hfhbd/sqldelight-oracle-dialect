@@ -13,6 +13,8 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.AS"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.BY"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.COMMA"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.CURRENT_DATE"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.CURRENT_TIMESTAMP"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DEFAULT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DIGIT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DISTINCT"
@@ -42,7 +44,7 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITHOUT"
   ]
 }
-overrides ::= type_name | bind_parameter | generated_clause | default_constraint
+overrides ::= type_name | bind_parameter | generated_clause | default_constraint | literal_value
 
 // https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/Data-Types.html#GUID-A3C0D836-BADB-44E5-A5D4-265BA5968483
 type_name ::= (
@@ -109,5 +111,17 @@ generated_clause ::= GENERATED ( (ALWAYS | BY DEFAULT [ON NULL]) AS 'IDENTITY' )
 default_constraint ::= DEFAULT [ON NULL] <<expr '-1'>> {
 extends = "com.alecstrong.sql.psi.core.psi.impl.SqlDefaultConstraintImpl"
   implements = "com.alecstrong.sql.psi.core.psi.SqlDefaultConstraint"
+  override = true
+}
+
+literal_value ::= ( {numeric_literal}
+                  | {string_literal}
+                  | {blob_literal}
+                  | NULL
+                  | CURRENT_DATE
+                  | CURRENT_TIMESTAMP
+                  | 'SYSDATE' ) {
+  mixin = "app.softwork.sqldelight.oracledialect.grammar.mixins.LiteralValueMixin"
+  implements = "com.alecstrong.sql.psi.core.psi.SqlLiteralValue"
   override = true
 }
