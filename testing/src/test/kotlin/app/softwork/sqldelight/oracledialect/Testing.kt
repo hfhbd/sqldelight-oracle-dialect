@@ -23,7 +23,7 @@ class Testing {
         assertEquals(
             listOf(
                 Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch),
-                Foo(100, "Bar", "BAR", 1.toBigDecimal(), epoch)
+                Foo(100, "Bar", null, 1.toBigDecimal(), epoch)
             ),
             db.fooQueries.getAll().executeAsList()
         )
