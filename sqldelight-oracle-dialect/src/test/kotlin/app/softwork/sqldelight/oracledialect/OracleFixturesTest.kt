@@ -14,6 +14,8 @@ class OracleFixturesTest(name: String, fixtureRoot: File) : FixturesTest(name, f
     "?2" to "?",
     "AUTOINCREMENT" to "DEFAULT SYS_GUID()",
     "GENERATED ALWAYS AS (2)" to "GENERATED ALWAYS AS IDENTITY",
+    "CURRENT_TIME," to "SYSDATE,",
+    "CURRENT_TIME;" to "SYSDATE;",
   )
 
   override fun setupDialect() {

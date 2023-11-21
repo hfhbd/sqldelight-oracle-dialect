@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm")
     id("com.alecstrong.grammar.kit.composer")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
     id("app.cash.licensee")
     id("publish")
     id("exclude")
