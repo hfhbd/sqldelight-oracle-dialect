@@ -37,4 +37,29 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
             })
         }
     }
+
+    override fun resolvedType(expr: SqlExpr): IntermediateType = when(expr) {
+        is SqlBinaryExpr -> {
+            encapsulatingType(
+                expr.getExprList(),
+                nullableIfAny = expr is SqlBinaryAddExpr || expr is SqlBinaryMultExpr || expr is SqlBinaryPipeExpr,
+                OracleType.SMALL_INT,
+                OracleType.INTEGER,
+                OracleType.NUMBER,
+                PrimitiveType.REAL,
+                PrimitiveType.TEXT,
+                PrimitiveType.BLOB,
+                OracleType.DATE,
+                OracleType.TIME,
+                OracleType.TIMESTAMP,
+            )
+        }
+        is SqlLiteralExpr -> when {
+            expr.literalValue.text == "CURRENT_DATE" -> IntermediateType(OracleType.DATE)
+            expr.literalValue.text == "SYSDATE" -> IntermediateType(OracleType.DATE)
+            expr.literalValue.text == "CURRENT_TIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP)
+            else -> parentResolver.resolvedType(expr)
+        }
+        else -> parentResolver.resolvedType(expr)
+    }
 }

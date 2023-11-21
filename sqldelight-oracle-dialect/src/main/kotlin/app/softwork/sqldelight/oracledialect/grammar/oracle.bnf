@@ -75,7 +75,7 @@ scale ::= digit
 
 boolean_data_type ::= 'BOOLEAN'
 
-character_string_data_type ::= { ('CHARACTER' 'VARYING') | ('CHAR' 'VARYING') | 'VARCHAR' } LP digit RP | character_large_object_data_type | { 'CHARACTER' | 'CHAR' | 'LONGVARCHAR' } [ LP digit RP ]
+character_string_data_type ::= { ('CHARACTER' 'VARYING') | ('CHAR' 'VARYING') | 'VARCHAR' | 'VARCHAR2' } LP digit ['CHAR'] RP | character_large_object_data_type | { 'CHARACTER' | 'CHAR' | 'LONGVARCHAR' } [ LP digit RP ]
 character_large_object_data_type ::= { ('CHARACTER' 'LARGE' 'OBJECT') | ('CHAR' 'LARGE' 'OBJECT') | 'CLOB' } [ LP character_large_object_length RP ]
 character_large_object_length ::= digit [ multiplier ] [ char_length_units ]
 multiplier ::= 'K' | 'M' | 'G'
