@@ -13,10 +13,19 @@ class Testing {
         val epoch = LocalDate.ofEpochDay(0)
 
         assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
-        db.fooQueries.new(Foo(42, "Foo", 1.toBigDecimal(), epoch))
-        assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch)), db.fooQueries.getAll().executeAsList())
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch))
+        assertEquals(
+            listOf(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch)),
+            db.fooQueries.getAll().executeAsList()
+        )
 
-        db.fooQueries.create(Foo(100, "Bar", 1.toBigDecimal(), epoch))
-        assertEquals(listOf(Foo(42, "Foo", 1.toBigDecimal(), epoch), Foo(100, "Bar", 1.toBigDecimal(), epoch)), db.fooQueries.getAll().executeAsList())
+        db.fooQueries.create(Foo(100, "Bar", "BAR", 1.toBigDecimal(), epoch))
+        assertEquals(
+            listOf(
+                Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch),
+                Foo(100, "Bar", null, 1.toBigDecimal(), epoch)
+            ),
+            db.fooQueries.getAll().executeAsList()
+        )
     }
 }
