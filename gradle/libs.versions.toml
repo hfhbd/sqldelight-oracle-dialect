@@ -7,7 +7,7 @@ sqldelight-dialect = { module = "app.cash.sqldelight:dialect-api", version.ref =
 sqldelight-compilerEnv = { module = "app.cash.sqldelight:compiler-env", version.ref = "sqldelight" }
 sqldelight-jdbcDriver = { module = "app.cash.sqldelight:jdbc-driver", version.ref = "sqldelight" }
 
-sql-psi = { module = "com.alecstrong.sql.psi:core", version = "0.4.6" }
+sql-psi = { module = "com.alecstrong.sql.psi:core", version = "0.4.8" }
 sql-psi-test-fixtures = { module = "com.alecstrong.sql.psi:test-fixtures", version = "0.4.6" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.1" }
 testcontainers = { module = "org.testcontainers:oracle-xe", version = "1.19.3" }
