@@ -8,10 +8,9 @@ sqldelight-compilerEnv = { module = "app.cash.sqldelight:compiler-env", version.
 sqldelight-jdbcDriver = { module = "app.cash.sqldelight:jdbc-driver", version.ref = "sqldelight" }
 
 sql-psi = { module = "com.alecstrong.sql.psi:core", version = "0.4.8" }
-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.1" }
 testcontainers = { module = "org.testcontainers:oracle-xe", version = "1.19.3" }
 oracle-driver = { module = "com.oracle.database.jdbc:ojdbc8", version = "23.3.0.23.09" }
-logback = { module = "ch.qos.logback:logback-classic", version = "1.3.13" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.3.14" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "1.9.21" }
