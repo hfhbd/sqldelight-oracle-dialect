@@ -3,7 +3,6 @@ package app.softwork.sqldelight.oracledialect
 import app.cash.sqldelight.dialect.api.*
 import app.softwork.sqldelight.oracledialect.grammar.psi.OracleTypeName
 import com.alecstrong.sql.psi.core.psi.*
-import com.intellij.psi.PsiElement
 
 internal class OracleTypeResolver(private val parentResolver: TypeResolver) : TypeResolver by parentResolver {
     override fun definitionType(typeName: SqlTypeName): IntermediateType {
@@ -54,10 +53,10 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                 OracleType.TIMESTAMP,
             )
         }
-        is SqlLiteralExpr -> when {
-            expr.literalValue.text == "CURRENT_DATE" -> IntermediateType(OracleType.DATE)
-            expr.literalValue.text == "SYSDATE" -> IntermediateType(OracleType.DATE)
-            expr.literalValue.text == "CURRENT_TIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP)
+        is SqlLiteralExpr -> when (expr.literalValue.text) {
+            "CURRENT_DATE" -> IntermediateType(OracleType.DATE)
+            "SYSDATE" -> IntermediateType(OracleType.DATE)
+            "CURRENT_TIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP)
             else -> parentResolver.resolvedType(expr)
         }
         else -> parentResolver.resolvedType(expr)
