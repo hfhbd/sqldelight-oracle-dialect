@@ -14,7 +14,6 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                 dateDataType != null -> {
                     when (dateDataType!!.firstChild.text) {
                         "DATE" -> OracleType.DATE
-                        "TIME" -> OracleType.TIME
                         "TIMESTAMP" -> if (dateDataType!!.node.getChildren(null)
                                 .any { it.text == "WITH" }
                         ) OracleType.TIMESTAMP_TIMEZONE else OracleType.TIMESTAMP
@@ -49,7 +48,6 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                 PrimitiveType.TEXT,
                 PrimitiveType.BLOB,
                 OracleType.DATE,
-                OracleType.TIME,
                 OracleType.TIMESTAMP,
             )
         }
