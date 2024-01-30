@@ -20,10 +20,10 @@ SELECT round(42), round(42, 0), id FROM foo;
 
 testDates:
 SELECT
-  CURRENT_DATE AS currentDate,
-  CURRENT_TIMESTAMP AS currentTimestamp,
-  SYSDATE AS sysDate,
-  SYSTIMESTAMP AS sysTimestamp,
-  LOCALTIMESTAMP AS localTimestamp,
+  CURRENT_DATE AS "currentDate",
+  CURRENT_TIMESTAMP AS "currentTimestamp",
+  SYSDATE AS "sysDate",
+  SYSTIMESTAMP AS "sysTimestamp",
+  LOCALTIMESTAMP AS "localTimestamp",
   id
 FROM foo;
