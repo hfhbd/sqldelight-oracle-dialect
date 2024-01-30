@@ -120,7 +120,7 @@ literal_value ::= ( {numeric_literal}
                   | NULL
                   | CURRENT_DATE
                   | CURRENT_TIMESTAMP
-                  | 'SYSDATE' ) {
+                  | 'SYSDATE' | 'SYSTIMESTAMP' | 'LOCALTIMESTAMP' ) {
   mixin = "app.softwork.sqldelight.oracledialect.grammar.mixins.LiteralValueMixin"
   implements = "com.alecstrong.sql.psi.core.psi.SqlLiteralValue"
   override = true

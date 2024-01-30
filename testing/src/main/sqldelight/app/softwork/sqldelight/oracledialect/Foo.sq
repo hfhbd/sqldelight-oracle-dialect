@@ -1,4 +1,4 @@
-CREATE TABLE foo(
+CREATE TABLE IF NOT EXISTS foo(
   id INT NOT NULL,
   name VARCHAR(255) NOT NULL,
   name2 VARCHAR2(255 CHAR) DEFAULT NULL,
@@ -14,3 +14,15 @@ INSERT INTO foo VALUES ?;
 
 create:
 INSERT INTO foo (id, name, nu, dd) VALUES ?;
+
+testRound:
+SELECT round(42), round(42, 0) FROM foo;
+
+testDates:
+SELECT
+  CURRENT_DATE AS currentDate,
+  CURRENT_TIMESTAMP AS currentTimestamp,
+  SYSDATE AS sysDate,
+  SYSTIMESTAMP AS sysTimestamp,
+  LOCALTIMESTAMP AS localTimestamp
+FROM foo;
