@@ -14,7 +14,6 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                 dateDataType != null -> {
                     when (dateDataType!!.firstChild.text) {
                         "DATE" -> OracleType.DATE
-                        "TIME" -> OracleType.TIME
                         "TIMESTAMP" -> if (dateDataType!!.node.getChildren(null)
                                 .any { it.text == "WITH" }
                         ) OracleType.TIMESTAMP_TIMEZONE else OracleType.TIMESTAMP
@@ -37,7 +36,7 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
         }
     }
 
-    override fun resolvedType(expr: SqlExpr): IntermediateType = when(expr) {
+    override fun resolvedType(expr: SqlExpr): IntermediateType = when (expr) {
         is SqlBinaryExpr -> {
             encapsulatingType(
                 expr.getExprList(),
@@ -49,16 +48,30 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                 PrimitiveType.TEXT,
                 PrimitiveType.BLOB,
                 OracleType.DATE,
-                OracleType.TIME,
                 OracleType.TIMESTAMP,
             )
         }
+
         is SqlLiteralExpr -> when (expr.literalValue.text) {
             "CURRENT_DATE" -> IntermediateType(OracleType.DATE)
+            "CURRENT_TIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP_TIMEZONE)
             "SYSDATE" -> IntermediateType(OracleType.DATE)
-            "CURRENT_TIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP)
+            "SYSTIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP_TIMEZONE)
+            "LOCALTIMESTAMP" -> IntermediateType(OracleType.TIMESTAMP)
             else -> parentResolver.resolvedType(expr)
         }
+
         else -> parentResolver.resolvedType(expr)
+    }
+
+    override fun functionType(functionExpr: SqlFunctionExpr): IntermediateType? {
+        return when (functionExpr.functionName.text.lowercase()) {
+            "round" -> when (functionExpr.exprList.size) {
+                1 -> IntermediateType(PrimitiveType.INTEGER)
+                else -> IntermediateType(OracleType.NUMBER)
+            }
+
+            else -> parentResolver.functionType(functionExpr)
+        }
     }
 }

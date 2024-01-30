@@ -1,14 +1,14 @@
 package app.softwork.sqldelight.oracledialect
 
-import app.softwork.sqldelight.oracledialect.Oracle.driver
+import java.math.BigDecimal
 import java.time.*
 import kotlin.test.*
 
 class Testing {
     @Test
-    fun select() {
-        TestingDB.Schema.create(driver)
-        val db = TestingDB(driver)
+    fun select() = runTest {
+        TestingDB.Schema.create(this)
+        val db = TestingDB(this)
 
         val epoch = LocalDate.ofEpochDay(0)
 
@@ -27,5 +27,32 @@ class Testing {
             ),
             db.fooQueries.getAll().executeAsList()
         )
+    }
+
+    @Test
+    fun round() = runTest {
+        TestingDB.Schema.create(this)
+        val db = TestingDB(this)
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
+
+        val s = db.fooQueries.testRound().executeAsOne()
+        val integer: Long = s.round
+        assertEquals(42L, integer)
+        val number: BigDecimal = s.round_
+        assertEquals(BigDecimal.valueOf(42L), number)
+    }
+
+    @Test
+    fun dates() = runTest {
+        TestingDB.Schema.create(this)
+        val db = TestingDB(this)
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
+
+        val s = db.fooQueries.testDates().executeAsOne()
+        val currentDate: LocalDate = s.currentDate
+        val currentTimestamp: Instant = s.currentTimestamp
+        val sysDate: LocalDate = s.sysDate
+        val sysTimestamp: Instant = s.sysTimestamp
+        val localTimestamp: LocalDateTime = s.localTimestamp
     }
 }
