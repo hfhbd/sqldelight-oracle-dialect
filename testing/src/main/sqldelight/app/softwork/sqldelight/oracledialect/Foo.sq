@@ -16,7 +16,7 @@ create:
 INSERT INTO foo (id, name, nu, dd) VALUES ?;
 
 testRound:
-SELECT round(42), round(42, 0) FROM foo;
+SELECT round(42), round(42, 0), id FROM foo;
 
 testDates:
 SELECT
@@ -24,5 +24,6 @@ SELECT
   CURRENT_TIMESTAMP AS currentTimestamp,
   SYSDATE AS sysDate,
   SYSTIMESTAMP AS sysTimestamp,
-  LOCALTIMESTAMP AS localTimestamp
+  LOCALTIMESTAMP AS localTimestamp,
+  id
 FROM foo;

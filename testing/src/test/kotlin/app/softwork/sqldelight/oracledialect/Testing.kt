@@ -33,6 +33,7 @@ class Testing {
     fun round() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
 
         val s = db.fooQueries.testRound().executeAsOne()
         val integer: Long = s.round
@@ -45,6 +46,7 @@ class Testing {
     fun dates() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
 
         val s = db.fooQueries.testDates().executeAsOne()
         val currentDate: LocalDate = s.currentDate
