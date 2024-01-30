@@ -69,7 +69,7 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
             "round" -> when (functionExpr.exprList.size) {
                 1 -> IntermediateType(PrimitiveType.INTEGER)
                 else -> IntermediateType(OracleType.NUMBER)
-            }
+            }.nullableIf(resolvedType(functionExpr.exprList[0]).javaType.isNullable)
 
             else -> parentResolver.functionType(functionExpr)
         }
