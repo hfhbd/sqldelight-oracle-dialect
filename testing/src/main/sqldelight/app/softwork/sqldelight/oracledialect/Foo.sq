@@ -27,3 +27,6 @@ SELECT
   LOCALTIMESTAMP AS "localTimestamp",
   id
 FROM foo;
+
+testMinusDate:
+SELECT SYSDATE - ?, SYSDATE + coalesce(?, 42), id FROM foo;

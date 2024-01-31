@@ -1,8 +1,9 @@
 package app.softwork.sqldelight.oracledialect
 
 import app.cash.sqldelight.dialect.api.*
-import app.softwork.sqldelight.oracledialect.grammar.psi.OracleTypeName
+import app.softwork.sqldelight.oracledialect.grammar.psi.*
 import com.alecstrong.sql.psi.core.psi.*
+import com.intellij.psi.*
 
 internal class OracleTypeResolver(private val parentResolver: TypeResolver) : TypeResolver by parentResolver {
     override fun definitionType(typeName: SqlTypeName): IntermediateType {
@@ -36,9 +37,29 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
         }
     }
 
+    override fun argumentType(parent: PsiElement, argument: SqlExpr): IntermediateType {
+        if (argument is SqlBindExpr && parent is SqlBinaryAddExpr) {
+            val (right, left) = parent.getExprList()
+            val rightType = resolvedType(right).dialectType
+            if (rightType is OracleType) {
+                when (rightType) {
+                    OracleType.DATE, OracleType.TIMESTAMP, OracleType.TIMESTAMP_TIMEZONE ->
+                        return IntermediateType(PrimitiveType.INTEGER).nullableIf(resolvedType(left).isNullable())
+
+                    else -> {}
+                }
+            }
+        }
+        return parentResolver.argumentType(parent, argument)
+    }
+
+    private fun IntermediateType.isNullable(): Boolean {
+        return javaType.isNullable
+    }
+
     override fun resolvedType(expr: SqlExpr): IntermediateType = when (expr) {
         is SqlBinaryExpr -> {
-            encapsulatingType(
+            val type = encapsulatingType(
                 expr.getExprList(),
                 nullableIfAny = expr is SqlBinaryAddExpr || expr is SqlBinaryMultExpr || expr is SqlBinaryPipeExpr,
                 OracleType.SMALL_INT,
@@ -49,7 +70,20 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
                 PrimitiveType.BLOB,
                 OracleType.DATE,
                 OracleType.TIMESTAMP,
+                OracleType.TIMESTAMP_TIMEZONE,
             )
+            val resolvedType = type.dialectType
+            if (resolvedType is OracleType) {
+                when (resolvedType) {
+                    OracleType.DATE,
+                    OracleType.TIMESTAMP,
+                    OracleType.TIMESTAMP_TIMEZONE -> type.nullableIf(
+                        expr is SqlBinaryAddExpr && resolvedType(expr.getExprList()[1]).isNullable()
+                    )
+
+                    else -> type
+                }
+            } else type
         }
 
         is SqlLiteralExpr -> when (expr.literalValue.text) {
