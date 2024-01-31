@@ -62,7 +62,7 @@ class Testing {
         val db = TestingDB(this)
         db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
 
-        val i: Long? = 42
+        val i: Long? = null
         val l: Long? = 42
         val s = db.fooQueries.testMinusDate(i, l).executeAsOne()
         val a: LocalDate? = s.expr
