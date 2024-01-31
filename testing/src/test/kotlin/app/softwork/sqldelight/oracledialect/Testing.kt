@@ -55,4 +55,18 @@ class Testing {
         val sysTimestamp: Instant = s.sysTimestamp
         val localTimestamp: LocalDateTime = s.localTimestamp
     }
+
+    @Test
+    fun testMinusDate() = runTest {
+        TestingDB.Schema.create(this)
+        val db = TestingDB(this)
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
+
+        val i: Long? = 42
+        val l: Long? = 42
+        val s = db.fooQueries.testMinusDate(i, l).executeAsOne()
+        val a: LocalDate? = s.expr
+        assertNull(a)
+        val b: LocalDate = s.expr_
+    }
 }
