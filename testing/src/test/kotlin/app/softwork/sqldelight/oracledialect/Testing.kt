@@ -10,7 +10,7 @@ class Testing {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
 
-        val epoch = LocalDate.ofEpochDay(0)
+        val epoch = LocalDate.ofEpochDay(0).atTime(0, 0, 0)
 
         assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
         db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch))
@@ -33,7 +33,7 @@ class Testing {
     fun round() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now()))
 
         val s = db.fooQueries.testRound().executeAsOne()
         val integer: Long = s.round
@@ -46,27 +46,27 @@ class Testing {
     fun dates() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now()))
 
         val s = db.fooQueries.testDates().executeAsOne()
-        val currentDate: LocalDate = s.currentDate
-        val currentTimestamp: Instant = s.currentTimestamp
-        val sysDate: LocalDate = s.sysDate
-        val sysTimestamp: Instant = s.sysTimestamp
-        val localTimestamp: LocalDateTime = s.localTimestamp
+        val currentDate: LocalDateTime = s.currentDate
+        val currentTimestamp: ZonedDateTime = s.currentTimestamp
+        val sysDate: LocalDateTime = s.sysDate
+        val sysTimestamp: ZonedDateTime = s.sysTimestamp
+        val localTimestamp: Instant = s.localTimestamp
     }
 
     @Test
     fun testMinusDate() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDate.now()))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now()))
 
         val i: Long? = null
         val l: Long? = 42
         val s = db.fooQueries.testMinusDate(i, l).executeAsOne()
-        val a: LocalDate? = s.expr
+        val a: LocalDateTime? = s.expr
         assertNull(a)
-        val b: LocalDate = s.expr_
+        val b: LocalDateTime = s.expr_
     }
 }
