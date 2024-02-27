@@ -24,17 +24,17 @@ internal enum class OracleType(override val javaType: TypeName, val oracleType: 
 
         override fun encode(value: CodeBlock) = CodeBlock.of("if (%L) 1L else 0L", value)
     },
-    DATE(ClassName("java.time", "LocalDate"), ClassName("oracle.sql", "DATE")) {
-        override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
-        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.localDateValue()", value)
-    },
-    TIMESTAMP(ClassName("java.time", "LocalDateTime"), ClassName("oracle.sql", "TIMESTAMP")) {
+    DATE(ClassName("java.time", "LocalDateTime"), ClassName("oracle.sql", "DATE")) {
         override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
         override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.localDateTimeValue()", value)
     },
-    TIMESTAMP_TIMEZONE(ClassName("java.time", "Instant"), ClassName("oracle.sql", "TIMESTAMPTZ")) {
+    TIMESTAMP(ClassName("java.time", "Instant"), ClassName("oracle.sql", "TIMESTAMP")) {
         override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
-        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.toZonedDateTime().toInstant()", value)
+        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.timestampValue().toInstant()", value)
+    },
+    TIMESTAMP_TIMEZONE(ClassName("java.time", "ZonedDateTime"), ClassName("oracle.sql", "TIMESTAMPTZ")) {
+        override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
+        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.toZonedDateTime()", value)
     },
     ;
 
