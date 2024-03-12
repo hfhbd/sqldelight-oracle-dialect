@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS foo(
   name VARCHAR(255) NOT NULL,
   name2 VARCHAR2(255 CHAR) DEFAULT NULL,
   nu NUMBER(10, 2) NOT NULL,
-  dd DATE NOT NULL
+  dd DATE NOT NULL,
+  tz TIMESTAMP WITH TIME ZONE
 );
 
 getAll:
@@ -13,7 +14,7 @@ new:
 INSERT INTO foo VALUES ?;
 
 create:
-INSERT INTO foo (id, name, nu, dd) VALUES ?;
+INSERT INTO foo (id, name, nu, dd, tz) VALUES ?;
 
 testRound:
 SELECT round(42), round(42, 0), id FROM foo;

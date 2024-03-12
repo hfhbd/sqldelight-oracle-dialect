@@ -11,19 +11,20 @@ class Testing {
         val db = TestingDB(this)
 
         val epoch = LocalDate.ofEpochDay(0).atTime(0, 0, 0)
+        val now = ZonedDateTime.now()
 
         assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, now))
         assertEquals(
-            listOf(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch)),
+            listOf(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, now)),
             db.fooQueries.getAll().executeAsList()
         )
 
-        db.fooQueries.create(Foo(100, "Bar", "BAR", 1.toBigDecimal(), epoch))
+        db.fooQueries.create(Foo(100, "Bar", "BAR", 1.toBigDecimal(), epoch, now))
         assertEquals(
             listOf(
-                Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch),
-                Foo(100, "Bar", null, 1.toBigDecimal(), epoch)
+                Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, now),
+                Foo(100, "Bar", null, 1.toBigDecimal(), epoch, now)
             ),
             db.fooQueries.getAll().executeAsList()
         )
@@ -33,7 +34,7 @@ class Testing {
     fun round() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now()))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now(), ZonedDateTime.now()))
 
         val s = db.fooQueries.testRound().executeAsOne()
         val integer: Long = s.round
@@ -46,7 +47,7 @@ class Testing {
     fun dates() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now()))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now(), ZonedDateTime.now()))
 
         val s = db.fooQueries.testDates().executeAsOne()
         val currentDate: LocalDateTime = s.currentDate
@@ -60,7 +61,7 @@ class Testing {
     fun testMinusDate() = runTest {
         TestingDB.Schema.create(this)
         val db = TestingDB(this)
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now()))
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now(), ZonedDateTime.now()))
 
         val i: Long? = null
         val l: Long? = 42
