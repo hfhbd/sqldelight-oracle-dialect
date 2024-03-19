@@ -7,7 +7,6 @@ import kotlin.test.*
 class Testing {
     @Test
     fun select() = runTest {
-        TestingDB.Schema.create(this)
         val db = TestingDB(this)
 
         val epoch = LocalDate.ofEpochDay(0).atTime(0, 0, 0)
@@ -32,7 +31,6 @@ class Testing {
 
     @Test
     fun round() = runTest {
-        TestingDB.Schema.create(this)
         val db = TestingDB(this)
         db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now(), ZonedDateTime.now()))
 
@@ -45,7 +43,6 @@ class Testing {
 
     @Test
     fun dates() = runTest {
-        TestingDB.Schema.create(this)
         val db = TestingDB(this)
         db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now(), ZonedDateTime.now()))
 
@@ -59,7 +56,6 @@ class Testing {
 
     @Test
     fun testMinusDate() = runTest {
-        TestingDB.Schema.create(this)
         val db = TestingDB(this)
         db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), LocalDateTime.now(), ZonedDateTime.now()))
 

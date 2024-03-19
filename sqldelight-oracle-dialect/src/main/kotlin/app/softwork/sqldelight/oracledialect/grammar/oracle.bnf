@@ -17,6 +17,7 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.CURRENT_DATE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.CURRENT_TIMESTAMP"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DEFAULT"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.DELETE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DIGIT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DISTINCT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.EACH"
@@ -26,6 +27,7 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.GENERATED"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.ID"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.INTO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.INSERT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.GROUP"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.HAVING"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.LP"
@@ -127,10 +129,15 @@ literal_value ::= ( {numeric_literal}
   override = true
 }
 
-extension_stmt ::= createUser {
+extension_stmt ::= createUser | grantTable | grantSession {
   extends = "com.alecstrong.sql.psi.core.psi.impl.SqlExtensionStmtImpl"
   implements = "com.alecstrong.sql.psi.core.psi.SqlExtensionStmt"
   override = true
 }
 
-createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier};
+createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier} {
+  pin = 2;
+}
+
+grantTable ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal};
+grantSession ::= 'GRANT' CREATE 'SESSION' TO {string_literal};

@@ -8,18 +8,20 @@ CREATE TABLE IF NOT EXISTS foo(
 );
 
 CREATE USER "A-B" IDENTIFIED BY myStrongPassword;
+GRANT CREATE SESSION TO "A-B";
+GRANT SELECT, INSERT ON foo TO "A-B";
 
 getAll:
-SELECT * FROM foo WHERE dd < SYSDATE - 7;
+SELECT * FROM SYSTEM.foo WHERE dd < SYSDATE - 7;
 
 new:
-INSERT INTO foo VALUES ?;
+INSERT INTO SYSTEM.foo VALUES ?;
 
 create:
-INSERT INTO foo (id, name, nu, dd, tz) VALUES ?;
+INSERT INTO SYSTEM.foo (id, name, nu, dd, tz) VALUES ?;
 
 testRound:
-SELECT round(42), round(42, 0), id FROM foo;
+SELECT round(42), round(42, 0), id FROM SYSTEM.foo;
 
 testDates:
 SELECT
@@ -29,7 +31,7 @@ SELECT
   SYSTIMESTAMP AS "sysTimestamp",
   LOCALTIMESTAMP AS "localTimestamp",
   id
-FROM foo;
+FROM SYSTEM.foo;
 
 testMinusDate:
-SELECT SYSDATE - ?, SYSDATE + coalesce(?, 42), id FROM foo;
+SELECT SYSDATE - ?, SYSDATE + coalesce(?, 42), id FROM SYSTEM.foo;

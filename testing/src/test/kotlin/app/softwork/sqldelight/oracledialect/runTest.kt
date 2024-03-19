@@ -6,13 +6,13 @@ import oracle.jdbc.datasource.impl.*
 import org.testcontainers.containers.*
 import org.testcontainers.utility.*
 
-fun runTest(action: SqlDriver.(SqlDriver) -> Unit) {
+fun runTest(action: SqlDriver.() -> Unit) {
     val myImage =
         DockerImageName.parse("gvenzl/oracle-free:23-slim-faststart").asCompatibleSubstituteFor("gvenzl/oracle-xe")
     val container = OracleContainer(myImage)
     container.start()
 
-    val systemUser = OracleDataSource().apply {
+    OracleDataSource().apply {
         driverType = "thin"
         serverName = "localhost"
         serviceName = "FREEPDB1"
@@ -20,7 +20,9 @@ fun runTest(action: SqlDriver.(SqlDriver) -> Unit) {
         databaseName = "FREEPDB1"
         user = "SYSTEM"
         setPassword("test")
-    }.asJdbcDriver()
+    }.asJdbcDriver().use {
+        TestingDB.Schema.create(it)
+    }
 
     val newUser = OracleDataSource().apply {
         driverType = "thin"
@@ -33,9 +35,8 @@ fun runTest(action: SqlDriver.(SqlDriver) -> Unit) {
     }.asJdbcDriver()
 
     try {
-        systemUser.action(newUser)
+        newUser.action()
     } finally {
-        systemUser.close()
         newUser.close()
     }
 }
