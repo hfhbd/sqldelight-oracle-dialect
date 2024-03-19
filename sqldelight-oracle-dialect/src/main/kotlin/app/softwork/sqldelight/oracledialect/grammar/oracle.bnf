@@ -133,4 +133,4 @@ extension_stmt ::= createUser {
   override = true
 }
 
-createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {string_literal};
+createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier};
