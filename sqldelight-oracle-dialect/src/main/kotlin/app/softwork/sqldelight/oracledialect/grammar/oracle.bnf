@@ -129,7 +129,7 @@ literal_value ::= ( {numeric_literal}
   override = true
 }
 
-extension_stmt ::= createUser | grantSelect {
+extension_stmt ::= createUser | grantTable | grantSession {
   extends = "com.alecstrong.sql.psi.core.psi.impl.SqlExtensionStmtImpl"
   implements = "com.alecstrong.sql.psi.core.psi.SqlExtensionStmt"
   override = true
@@ -139,6 +139,5 @@ createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier} {
   pin = 2;
 }
 
-grantSelect ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal} {
-  pin = 1;
-}
+grantTable ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal};
+grantSession ::= 'GRANT' CREATE 'SESSION' TO {string_literal};
