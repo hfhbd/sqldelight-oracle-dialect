@@ -10,14 +10,14 @@ fun runTest(action: SqlDriver.(SqlDriver) -> Unit) {
     val myImage =
         DockerImageName.parse("gvenzl/oracle-free:23-slim-faststart").asCompatibleSubstituteFor("gvenzl/oracle-xe")
     val container = OracleContainer(myImage)
-    container.withDatabaseName("FREEPDB1")
     container.start()
+
     val systemUser = OracleDataSource().apply {
         driverType = "thin"
         serverName = "localhost"
         serviceName = "FREEPDB1"
         portNumber = container.oraclePort
-        databaseName = "xepdb1"
+        databaseName = "FREEPDB1"
         user = "SYSTEM"
         setPassword("test")
     }.asJdbcDriver()
@@ -27,7 +27,7 @@ fun runTest(action: SqlDriver.(SqlDriver) -> Unit) {
         serverName = "localhost"
         serviceName = "FREEPDB1"
         portNumber = container.oraclePort
-        databaseName = "xepdb1"
+        databaseName = "FREEPDB1"
         user = "A-B"
         setPassword("myStrongPassword")
     }.asJdbcDriver()
