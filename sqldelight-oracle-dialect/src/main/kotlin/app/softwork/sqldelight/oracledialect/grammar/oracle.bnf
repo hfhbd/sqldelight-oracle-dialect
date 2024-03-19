@@ -10,6 +10,7 @@
   parserImports=[
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.ALL"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.ALWAYS"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.ALTER"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.AS"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.BY"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.COMMA"
@@ -40,8 +41,10 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.SELECT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.SET"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.TO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.TABLE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.UPDATE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.VALUES"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.VIEW"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WHERE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITH"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITHOUT"
@@ -129,7 +132,7 @@ literal_value ::= ( {numeric_literal}
   override = true
 }
 
-extension_stmt ::= createUser | grantTable | grantSession {
+extension_stmt ::= createUser | grantTable | grantSession | alterTablespace {
   extends = "com.alecstrong.sql.psi.core.psi.impl.SqlExtensionStmtImpl"
   implements = "com.alecstrong.sql.psi.core.psi.SqlExtensionStmt"
   override = true
@@ -139,5 +142,13 @@ createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier} {
   pin = 2;
 }
 
-grantTable ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal};
-grantSession ::= 'GRANT' CREATE 'SESSION' TO {string_literal};
+grantTable ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal} {
+  pin = 2;
+}
+grantSession ::= 'GRANT' (CREATE ('SESSION' | VIEW | TABLE | 'SEQUENCE' | 'PROCEDURE') [COMMA]) + TO {string_literal} {
+  pin = 2
+}
+alterTablespace ::= ALTER 'USER' {string_literal} 'QUOTA' 'UNLIMITED' ON {identifier} {
+  pin = 2
+}
+
