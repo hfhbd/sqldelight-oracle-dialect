@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS foo(
 );
 
 CREATE USER "A-B" IDENTIFIED BY myStrongPassword;
+GRANT SELECT ON TABLE foo TO "A-B";
 
 getAll:
 SELECT * FROM foo WHERE dd < SYSDATE - 7;
