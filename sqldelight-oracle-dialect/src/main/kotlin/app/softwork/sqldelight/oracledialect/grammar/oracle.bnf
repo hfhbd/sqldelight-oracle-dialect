@@ -40,10 +40,8 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.SELECT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.SET"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.TO"
-    "static com.alecstrong.sql.psi.core.psi.SqlTypes.TABLE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.UPDATE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.VALUES"
-    "static com.alecstrong.sql.psi.core.psi.SqlTypes.VIEW"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WHERE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITH"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITHOUT"
@@ -137,6 +135,10 @@ extension_stmt ::= createUser | grantSelect {
   override = true
 }
 
-createUser ::= CREATE 'USER' {identifier} 'IDENTIFIED' BY {identifier};
+createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier} {
+  pin = 2;
+}
 
-grantSelect ::= 'GRANT' (SELECT | INSERT | UPDATE | DELETE ) + ON (TABLE | VIEW) TO {identifier};
+grantSelect ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal} {
+  pin = 1;
+}

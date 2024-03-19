@@ -38,3 +38,12 @@ sqldelight {
 ## License
 
 Apache 2
+
+## Contributing
+
+This project uses TestContainers with a real database starting every test.
+For debugging, start the container once to speedup.
+
+```sh
+docker run -d -p 1521:1521 -e ORACLE_PASSWORD=myStrongPassword gvenzl/oracle-free
+```
