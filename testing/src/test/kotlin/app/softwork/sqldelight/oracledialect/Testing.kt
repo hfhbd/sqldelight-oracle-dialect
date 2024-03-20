@@ -26,7 +26,7 @@ class Testing {
         preparedStatement.setString(3, "BAR")
         preparedStatement.setObject(4, NUMBER(1.toBigDecimal()))
         preparedStatement.setObject(5, DATE(epoch))
-        preparedStatement.setNull(6, Types.OTHER)
+        preparedStatement.setNull(6, Types.NULL)
 
         preparedStatement.execute()
 
