@@ -1,5 +1,6 @@
 package app.softwork.sqldelight.oracledialect
 
+import app.cash.sqldelight.db.SqlCursor
 import app.cash.sqldelight.db.SqlPreparedStatement
 import app.cash.sqldelight.driver.jdbc.JdbcPreparedStatement
 import java.math.BigDecimal
@@ -35,5 +36,23 @@ public class OraclePreparedStatement(
 
     public fun bindBigDecimal(index: Int, decimal: BigDecimal?) {
         preparedStatement.setBigDecimal(index + 1, decimal)
+    }
+
+    public fun <R> executeQuery(mapper: (SqlCursor) -> R): R {
+        try {
+            return preparedStatement.executeQuery()
+                .use { resultSet -> mapper(OracleJdbcCursor(resultSet)) }
+        } finally {
+            preparedStatement.close()
+        }
+    }
+
+    public fun execute(): Long {
+        return if (preparedStatement.execute()) {
+            // returned true so this is a result set return type.
+            0L
+        } else {
+            preparedStatement.updateCount.toLong()
+        }
     }
 }

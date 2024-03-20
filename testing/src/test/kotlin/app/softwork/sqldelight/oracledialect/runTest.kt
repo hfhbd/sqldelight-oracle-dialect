@@ -1,7 +1,6 @@
 package app.softwork.sqldelight.oracledialect
 
 import app.cash.sqldelight.db.*
-import app.cash.sqldelight.driver.jdbc.*
 import oracle.jdbc.datasource.impl.*
 import org.testcontainers.containers.*
 import org.testcontainers.utility.*
@@ -20,7 +19,7 @@ fun runTest(action: SqlDriver.() -> Unit) {
         databaseName = "FREEPDB1"
         user = "SYSTEM"
         setPassword("test")
-    }.asJdbcDriver().use {
+    }.asOracleJdbcDriver().use {
         TestingDB.Schema.create(it)
     }
 
@@ -32,7 +31,7 @@ fun runTest(action: SqlDriver.() -> Unit) {
         databaseName = "FREEPDB1"
         user = "A-B"
         setPassword("myStrongPassword")
-    }.asJdbcDriver()
+    }.asOracleJdbcDriver()
 
     try {
         newUser.action()

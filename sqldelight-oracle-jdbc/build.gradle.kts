@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    api(libs.sqldelight.jdbcDriver)
+    implementation(libs.sqldelight.jdbcDriver)
 
     testImplementation(kotlin("test"))
 }
