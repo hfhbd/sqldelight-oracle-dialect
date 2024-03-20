@@ -3,57 +3,56 @@ package app.softwork.sqldelight.oracledialect
 import app.cash.sqldelight.dialect.api.*
 import com.squareup.kotlinpoet.*
 
-internal enum class OracleType(override val javaType: TypeName, val oracleType: TypeName? = null) : DialectType {
-    SMALL_INT(SHORT) {
-        override fun decode(value: CodeBlock) = CodeBlock.of("%L.toShort()", value)
-
-        override fun encode(value: CodeBlock) = CodeBlock.of("%L.toLong()", value)
-    },
-    INTEGER(INT) {
-        override fun decode(value: CodeBlock) = CodeBlock.of("%L.toInt()", value)
-
-        override fun encode(value: CodeBlock) = CodeBlock.of("%L.toLong()", value)
-    },
+internal enum class OracleType(override val javaType: TypeName) : DialectType {
+    SMALL_INT(SHORT),
+    INTEGER(INT),
     BIG_INT(LONG),
-    NUMBER(ClassName("java.math", "BigDecimal"), ClassName("oracle.sql", "NUMBER")) {
-        override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
-        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.bigDecimalValue()", value)
-    },
+    NUMBER(ClassName("java.math", "BigDecimal")),
     BOOL(BOOLEAN) {
         override fun decode(value: CodeBlock) = CodeBlock.of("%L == 1L", value)
 
         override fun encode(value: CodeBlock) = CodeBlock.of("if (%L) 1L else 0L", value)
     },
-    DATE(ClassName("java.time", "LocalDateTime"), ClassName("oracle.sql", "DATE")) {
-        override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
-        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.localDateTimeValue()", value)
-    },
-    TIMESTAMP(ClassName("java.time", "Instant"), ClassName("oracle.sql", "TIMESTAMP")) {
-        override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
-        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.timestampValue().toInstant()", value)
-    },
-    TIMESTAMP_TIMEZONE(ClassName("java.time", "ZonedDateTime"), ClassName("oracle.sql", "TIMESTAMPTZ")) {
-        override fun encode(value: CodeBlock): CodeBlock = CodeBlock.of("%T(%L)", oracleType, value)
-        override fun decode(value: CodeBlock): CodeBlock = CodeBlock.of("%L.toZonedDateTime()", value)
-    },
+    DATE(ClassName("java.time", "LocalDateTime")),
+    TIMESTAMP(ClassName("java.time", "LocalDateTime")),
+    TIMESTAMP_TIMEZONE(ClassName("java.time", "ZonedDateTime")),
     ;
 
-    override fun prepareStatementBinder(columnIndex: CodeBlock, value: CodeBlock): CodeBlock {
-        return when (this) {
-            SMALL_INT, INTEGER, BIG_INT, BOOL -> CodeBlock.of("bindLong(%L, %L)\n", columnIndex, value)
-            NUMBER, DATE, TIMESTAMP, TIMESTAMP_TIMEZONE -> CodeBlock.of(
-                "bindObject(%L, %L)\n",
-                columnIndex,
-                value
-            )
-        }
+    override fun prepareStatementBinder(columnIndex: CodeBlock, value: CodeBlock): CodeBlock = when (this) {
+        SMALL_INT -> CodeBlock.of("bindShort(%L, %L)\n", columnIndex, value)
+        INTEGER -> CodeBlock.of("bindInt(%L, %L)\n", columnIndex, value)
+        BIG_INT, BOOL -> CodeBlock.of("bindLong(%L, %L)\n", columnIndex, value)
+        NUMBER -> CodeBlock.of("bindBigDecimal(%L, %L)\n", columnIndex, value)
+        DATE -> CodeBlock.of(
+            "bindObject(%L, %L, %M)\n",
+            columnIndex,
+            value,
+            MemberName(ClassName("java.sql", "Types"), "DATE")
+        )
+
+        TIMESTAMP -> CodeBlock.of(
+            "bindObject(%L, %M)\n",
+            columnIndex,
+            value,
+            MemberName(ClassName("java.sql", "Types"), "TIMESTAMP")
+        )
+
+        TIMESTAMP_TIMEZONE -> CodeBlock.of(
+            "bindObject(%L, %L, %M)\n",
+            columnIndex,
+            value,
+            MemberName(ClassName("java.sql", "Types"), "TIMESTAMP_WITH_TIMEZONE")
+        )
     }
 
     override fun cursorGetter(columnIndex: Int, cursorName: String): CodeBlock = when (this) {
-        SMALL_INT, INTEGER, BIG_INT, BOOL -> CodeBlock.of("$cursorName.getLong($columnIndex)")
-        NUMBER, DATE, TIMESTAMP, TIMESTAMP_TIMEZONE -> CodeBlock.of(
+        SMALL_INT -> CodeBlock.of("$cursorName.getShort($columnIndex)")
+        INTEGER -> CodeBlock.of("$cursorName.getInt($columnIndex)")
+        BIG_INT, BOOL -> CodeBlock.of("$cursorName.getLong($columnIndex)")
+        NUMBER -> CodeBlock.of("$cursorName.getBigDecimal($columnIndex)")
+        DATE, TIMESTAMP, TIMESTAMP_TIMEZONE -> CodeBlock.of(
             "$cursorName.getObject<%T>($columnIndex)",
-            oracleType
+            javaType,
         )
     }
 }

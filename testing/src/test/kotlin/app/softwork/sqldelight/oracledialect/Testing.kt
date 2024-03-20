@@ -13,16 +13,17 @@ class Testing {
         val now = ZonedDateTime.now()
 
         assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
-        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, now))
+
+        db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, null))
         assertEquals(
-            listOf(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, now)),
+            listOf(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, null)),
             db.fooQueries.getAll().executeAsList()
         )
 
         db.fooQueries.create(Foo(100, "Bar", "BAR", 1.toBigDecimal(), epoch, now))
         assertEquals(
             listOf(
-                Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, now),
+                Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, null),
                 Foo(100, "Bar", null, 1.toBigDecimal(), epoch, now)
             ),
             db.fooQueries.getAll().executeAsList()
@@ -51,7 +52,7 @@ class Testing {
         val currentTimestamp: ZonedDateTime = s.currentTimestamp
         val sysDate: LocalDateTime = s.sysDate
         val sysTimestamp: ZonedDateTime = s.sysTimestamp
-        val localTimestamp: Instant = s.localTimestamp
+        val localTimestamp: LocalDateTime = s.localTimestamp
     }
 
     @Test

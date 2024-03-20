@@ -29,4 +29,5 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 include(":sqldelight-oracle-dialect")
+include(":sqldelight-oracle-jdbc")
 include(":testing")
