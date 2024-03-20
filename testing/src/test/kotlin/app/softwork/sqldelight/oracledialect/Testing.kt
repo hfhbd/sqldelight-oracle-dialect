@@ -1,6 +1,10 @@
 package app.softwork.sqldelight.oracledialect
 
+import app.cash.sqldelight.driver.jdbc.JdbcDriver
+import oracle.sql.DATE
+import oracle.sql.NUMBER
 import java.math.BigDecimal
+import java.sql.Types
 import java.time.*
 import kotlin.test.*
 
@@ -13,6 +17,19 @@ class Testing {
         val now = ZonedDateTime.now()
 
         assertEquals(emptyList(), db.fooQueries.getAll().executeAsList())
+        this as JdbcDriver
+        val preparedStatement = this.getConnection().prepareStatement(
+            """INSERT INTO SYSTEM.foo (id, name, name2, nu, dd, tz) VALUES (?, ?, ?, ?, ?, ?)"""
+        )
+        preparedStatement.setLong(1, 42)
+        preparedStatement.setString(2, "Foo")
+        preparedStatement.setString(3, "BAR")
+        preparedStatement.setObject(4, NUMBER(1.toBigDecimal()))
+        preparedStatement.setObject(5, DATE(epoch))
+        preparedStatement.setNull(6, Types.OTHER)
+
+        preparedStatement.execute()
+
         db.fooQueries.new(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, null))
         assertEquals(
             listOf(Foo(42, "Foo", "BAR", 1.toBigDecimal(), epoch, null)),
