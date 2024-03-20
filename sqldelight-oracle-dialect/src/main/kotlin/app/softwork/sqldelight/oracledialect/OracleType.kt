@@ -14,7 +14,7 @@ internal enum class OracleType(override val javaType: TypeName) : DialectType {
         override fun encode(value: CodeBlock) = CodeBlock.of("if (%L) 1L else 0L", value)
     },
     DATE(ClassName("java.time", "LocalDateTime")),
-    TIMESTAMP(ClassName("java.time", "OffsetDateTime")),
+    TIMESTAMP(ClassName("java.time", "LocalDateTime")),
     TIMESTAMP_TIMEZONE(ClassName("java.time", "ZonedDateTime")),
     ;
 
