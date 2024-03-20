@@ -52,7 +52,7 @@ class Testing {
         val currentTimestamp: ZonedDateTime = s.currentTimestamp
         val sysDate: LocalDateTime = s.sysDate
         val sysTimestamp: ZonedDateTime = s.sysTimestamp
-        val localTimestamp: Instant = s.localTimestamp
+        val localTimestamp: OffsetDateTime = s.localTimestamp
     }
 
     @Test
