@@ -6,7 +6,7 @@ plugins {
 kotlin.jvmToolchain(8)
 
 dependencies {
-    implementation(projects.sqldelightOracleJdbc)
+    implementation(libs.sqldelight.jdbcDriver)
 
     testImplementation(kotlin("test"))
     testImplementation(libs.testcontainers)
