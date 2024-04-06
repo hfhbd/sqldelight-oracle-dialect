@@ -1,5 +1,5 @@
 [versions]
-sqldelight = "2.0.1"
+sqldelight = "2.0.2"
 idea = "222.4459.24" # Flamingo | 2022.2.1
 
 [libraries]
