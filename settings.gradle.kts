@@ -9,17 +9,18 @@ pluginManagement {
 plugins {
     id("MyRepos")
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-    id("com.gradle.enterprise") version "3.16.2"
+    id("com.gradle.develocity") version "3.17"
 }
 
-gradleEnterprise {
+develocity {
     buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-        if (System.getenv("CI") != null) {
-            publishAlways()
-            tag("CI")
+        termsOfUseUrl.set("https://gradle.com/help/legal-terms-of-use")
+        termsOfUseAgree.set("yes")
+        val isCI = providers.environmentVariable("CI").isPresent
+        publishing {
+            onlyIf { isCI }
         }
+        tag("CI")
     }
 }
 
@@ -29,5 +30,4 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 include(":sqldelight-oracle-dialect")
-include(":sqldelight-oracle-jdbc")
 include(":testing")

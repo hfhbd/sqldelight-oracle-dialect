@@ -19,8 +19,8 @@ public class OracleDialect : SqlDelightDialect {
     override fun typeResolver(parentResolver: TypeResolver): TypeResolver = OracleTypeResolver(parentResolver)
 
     override val runtimeTypes: RuntimeTypes = RuntimeTypes(
-        ClassName("app.softwork.sqldelight.oracledialect", "OracleJdbcCursor"),
-        ClassName("app.softwork.sqldelight.oracledialect", "OraclePreparedStatement")
+        ClassName("app.cash.sqldelight.driver.jdbc", "JdbcCursor"),
+        ClassName("app.cash.sqldelight.driver.jdbc", "JdbcPreparedStatement")
     )
 
     override val asyncRuntimeTypes: RuntimeTypes

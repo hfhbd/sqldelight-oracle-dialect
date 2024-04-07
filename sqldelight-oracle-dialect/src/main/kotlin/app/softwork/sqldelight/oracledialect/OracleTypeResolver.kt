@@ -61,7 +61,7 @@ internal class OracleTypeResolver(private val parentResolver: TypeResolver) : Ty
         is SqlBinaryExpr -> {
             val type = encapsulatingType(
                 expr.getExprList(),
-                nullableIfAny = expr is SqlBinaryAddExpr || expr is SqlBinaryMultExpr || expr is SqlBinaryPipeExpr,
+                nullability = { expr is SqlBinaryAddExpr || expr is SqlBinaryMultExpr || expr is SqlBinaryPipeExpr },
                 OracleType.SMALL_INT,
                 OracleType.INTEGER,
                 OracleType.NUMBER,
