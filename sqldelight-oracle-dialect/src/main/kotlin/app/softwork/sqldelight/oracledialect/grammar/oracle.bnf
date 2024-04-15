@@ -20,6 +20,7 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DEFAULT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DELETE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DIGIT"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.DOT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.DISTINCT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.EACH"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.EQ"
@@ -32,7 +33,7 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.GROUP"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.HAVING"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.LP"
-    "static com.alecstrong.sql.psi.core.psi.SqlTypes.NO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.NOT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.NULL"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.ON"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.ORDER"
@@ -41,11 +42,14 @@
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.SELECT"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.SET"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.TO"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.THEN"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.TABLE"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.UPDATE"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.USING"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.VALUES"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.VIEW"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WHERE"
+    "static com.alecstrong.sql.psi.core.psi.SqlTypes.WHEN"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITH"
     "static com.alecstrong.sql.psi.core.psi.SqlTypes.WITHOUT"
   ]
@@ -132,7 +136,7 @@ literal_value ::= ( {numeric_literal}
   override = true
 }
 
-extension_stmt ::= createUser | grantTable | grantSession | alterTablespace {
+extension_stmt ::= createUser | grantTable | grantSession | alterTablespace | merge {
   extends = "com.alecstrong.sql.psi.core.psi.impl.SqlExtensionStmtImpl"
   implements = "com.alecstrong.sql.psi.core.psi.SqlExtensionStmt"
   override = true
@@ -152,3 +156,35 @@ alterTablespace ::= ALTER 'USER' {string_literal} 'QUOTA' 'UNLIMITED' ON {identi
   pin = 2
 }
 
+// https://docs.oracle.com/cd/B28359_01/server.111/b28286/statements_9016.htm#SQLRF01606
+merge ::= 'MERGE' INTO [ {database_name} DOT ] {table_name} {table_alias}
+             USING {table_or_subquery}
+             merge_on
+             [ merge_update_clause ]
+             [ merge_insert_clause ] {
+  pin = 1
+}
+
+merge_on ::= {join_constraint} {
+mixin = "app.softwork.sqldelight.oracledialect.grammar.mixins.MergeUpdateMixin"
+}
+
+merge_update_clause ::= WHEN 'MATCHED' THEN UPDATE SET merge_update_column_clause
+                        [ WHERE <<expr '-1'>> ]
+                        [ DELETE WHERE <<expr '-1'>> ] {
+                        mixin = "app.softwork.sqldelight.oracledialect.grammar.mixins.MergeUpdateMixin"
+  pin = 2;
+}
+merge_update_column_clause ::= merge_update_column_clause_single (COMMA merge_update_column_clause_single)*
+merge_update_column_clause_single ::= {column_expr} EQ ( <<expr '-1'>> | DEFAULT )
+
+merge_insert_clause ::= WHEN NOT 'MATCHED' THEN
+                        INSERT [ [ LP {column_expr} ( COMMA {column_expr} ) * RP ] ]
+                        {insert_stmt_values}
+                        [ WHERE <<expr '-1'>> ] {
+                        mixin = "app.softwork.sqldelight.oracledialect.grammar.mixins.MergeInsertMixin"
+                        extends = "com.alecstrong.sql.psi.core.psi.impl.SqlInsertStmtImpl"
+                          implements = "com.alecstrong.sql.psi.core.psi.SqlInsertStmt"
+
+  pin = 2;
+}

@@ -27,6 +27,6 @@ class OracleFixturesTest(name: String, fixtureRoot: File) : FixturesTest(name, f
     // Used by Parameterized JUnit runner reflectively.
     @Parameters(name = "{0}")
     @JvmStatic
-    fun parameters() =  ansiFixtures
+    fun parameters() =  ansiFixtures + OracleFixtures.fixtures_oracle
   }
 }
