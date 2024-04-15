@@ -67,4 +67,32 @@ class Testing {
         assertNull(a)
         val b: LocalDateTime = s.expr_
     }
+
+    // https://docs.oracle.com/cd/B28359_01/server.111/b28286/statements_9016.htm#SQLRF01606
+    @Test
+    fun mergeBonuses() = runTest {
+        val db = TestingDB(this)
+        db.mergeBonusesQueries.mergeBonuses()
+        val results = db.mergeBonusesQueries.getBonuses().executeAsList()
+        assertEquals(
+            listOf(
+                Bonuses(153.toBigDecimal(), 180.toBigDecimal()),
+                Bonuses(154.toBigDecimal(), 175.toBigDecimal()),
+                Bonuses(155.toBigDecimal(), 170.toBigDecimal()),
+                Bonuses(159.toBigDecimal(), 180.toBigDecimal()),
+                Bonuses(160.toBigDecimal(), 175.toBigDecimal()),
+                Bonuses(161.toBigDecimal(), 170.toBigDecimal()),
+                Bonuses(164.toBigDecimal(), 72.toBigDecimal()),
+                Bonuses(165.toBigDecimal(), 68.toBigDecimal()),
+                Bonuses(166.toBigDecimal(), 64.toBigDecimal()),
+                Bonuses(167.toBigDecimal(), 62.toBigDecimal()),
+                Bonuses(171.toBigDecimal(), 74.toBigDecimal()),
+                Bonuses(172.toBigDecimal(), 73.toBigDecimal()),
+                Bonuses(173.toBigDecimal(), 61.toBigDecimal()),
+                Bonuses(179.toBigDecimal(), 62.toBigDecimal()),
+            ),
+            results
+        )
+
+    }
 }

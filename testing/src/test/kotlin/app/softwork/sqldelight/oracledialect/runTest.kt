@@ -39,4 +39,5 @@ fun runTest(action: SqlDriver.() -> Unit) {
     } finally {
         newUser.close()
     }
+    container.close()
 }
