@@ -25,6 +25,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           dependency-graph: generate-and-submit
+          validate-wrappers: true
           gradle-home-cache-cleanup: true
-      - run: ./gradlew assemble
+          gradle-version: current
       - run: ./gradlew build
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/dependency-review-action@v4
