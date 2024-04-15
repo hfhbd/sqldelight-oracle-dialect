@@ -1534,8 +1534,8 @@ INSERT INTO employees VALUES
       );
 
 mergeBonuses:
-MERGE INTO bonuses D
-USING (SELECT employee_id, salary, department_id FROM employees WHERE department_id = 80) S
+MERGE INTO SYSTEM.bonuses D
+USING (SELECT employee_id, salary, department_id FROM SYSTEM.employees WHERE department_id = 80) S
 ON (D.employee_id = S.employee_id)
 WHEN MATCHED THEN UPDATE SET D.bonus = D.bonus + S.salary*.01
   DELETE WHERE (S.salary > 8000)
@@ -1544,4 +1544,4 @@ WHEN NOT MATCHED THEN INSERT (D.employee_id, D.bonus)
   WHERE (S.salary <= 8000);
 
 getBonuses:
-SELECT * FROM bonuses ORDER BY employee_id;
+SELECT * FROM SYSTEM.bonuses ORDER BY employee_id;
