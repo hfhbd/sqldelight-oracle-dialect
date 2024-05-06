@@ -146,10 +146,10 @@ createUser ::= CREATE 'USER' {string_literal} 'IDENTIFIED' BY {identifier} {
   pin = 2;
 }
 
-grantTable ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal} {
+grantTable ::= 'GRANT' ((SELECT | INSERT | UPDATE | DELETE) [COMMA]) + ON {identifier} TO {string_literal} [WITH 'GRANT' 'OPTION'] {
   pin = 2;
 }
-grantSession ::= 'GRANT' (CREATE ('SESSION' | VIEW | TABLE | 'SEQUENCE' | 'PROCEDURE') [COMMA]) + TO {string_literal} {
+grantSession ::= 'GRANT' (CREATE ('SESSION' | VIEW | TABLE | 'SEQUENCE' | 'PROCEDURE') [COMMA]) + TO {string_literal} [WITH 'GRANT' 'OPTION'] {
   pin = 2
 }
 alterTablespace ::= ALTER 'USER' {string_literal} 'QUOTA' 'UNLIMITED' ON {identifier} {
