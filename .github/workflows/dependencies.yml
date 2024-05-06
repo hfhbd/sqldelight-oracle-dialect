@@ -1,4 +1,4 @@
-name: CI
+name: Dependency review for pull requests
 
 on:
   push:
@@ -7,8 +7,10 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  dependency-submission:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     env:
       GRADLE_OPTS: -Dorg.gradle.caching=true
@@ -19,8 +21,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v3
-        with:
-          validate-wrappers: true
-          gradle-home-cache-cleanup: true
-      - run: ./gradlew build
+      - uses: gradle/actions/dependency-submission@v3
+      - uses: actions/dependency-review-action@v4
+        if: github.event_name == 'pull_request'
