@@ -52,4 +52,6 @@ signing {
 tasks.withType<AbstractArchiveTask>().configureEach {
     isPreserveFileTimestamps = false
     isReproducibleFileOrder = true
+    filePermissions {}
+    dirPermissions {}
 }
