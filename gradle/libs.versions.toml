@@ -1,5 +1,5 @@
 [versions]
-sqldelight = "2.0.2"
+sqldelight = "2.2.1"
 idea = "231.9392.1" # Hedgehog | 2023.1.1 Patch 2 (see https://plugins.jetbrains.com/docs/intellij/android-studio-releases-list.html)
 sqlpsi = "0.4.9"
 
